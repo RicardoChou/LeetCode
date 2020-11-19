@@ -21,23 +21,27 @@ public:
         //特殊情况
         if (!head || !head->next)
             return head;
-        //新建一个空的头节点用于统一运算（不然就要特殊考虑第一个节点就应该删除的情况）
+        //新建一个哑节点用于统一运算（不然就要特殊考虑第一个节点就应该删除的情况）
         ListNode *dummyhead = new ListNode(INT_MAX);
         dummyhead->next = head;
         ListNode *pre = dummyhead;
-        while (pre && pre->next)
+        ListNode *cur = head;
+        while (cur && cur->next)
         {
-            ListNode *cur = pre->next;
-            // 如果cur到最后一位了或者当前cur所指元素没有重复值
-            if (!cur->next || cur->next->val != cur->val)
-                pre = cur;
+            //初始化的时pre指向的是哑结点，所以比较逻辑应该是pre的下一个节点和cur的下一个节点
+            if (pre->next->val != cur->next->val)
+            {
+                pre = pre->next;
+                cur = cur->next;
+            }
             else
             {
-                // 将cur定位到一串重复元素的最后一位
-                while (cur->next && cur->next->val == cur->val)
+                //如果pre、cur指向的节点值相等，就不断移动cur，直到pre、cur指向的值不相等
+                while (cur && cur->next && pre->next->val == cur->next->val)
                     cur = cur->next;
                 // pre->next跳过中间所有的重复元素
                 pre->next = cur->next;
+                cur = cur->next;
             }
         }
         return dummyhead->next;
