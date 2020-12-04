@@ -18,16 +18,39 @@
  */
 class Solution
 {
+    //广度优先搜索遍历非递归算法
+    //把每一层的节点都弹出高度才加一
 public:
-    //递归遍历节点的左子树高度和右子树高度
-    //递归出口是该节点是空节点
     int maxDepth(TreeNode *root)
     {
-        if (root == NULL)
+        if (root == nullptr)
             return 0;
-        int left = maxDepth(root->left);
-        int right = maxDepth(root->right);
-        return left > right ? left + 1 : right + 1;
+        //广度优先遍历用队列
+        queue<TreeNode *> q;
+        //根节点入队
+        q.push(root);
+        //初始高度设为1
+        int ans = 0;
+        //队不空
+        while (!q.empty())
+        {
+            //将该层的所有节点都弹出，并将他们的所有的子节点都入队
+            int size = q.size();
+            while (size > 0)
+            {
+                TreeNode *p = q.front();
+                q.pop();
+                if (p->left)
+                    q.push(p->left);
+                if (p->right)
+                    q.push(p->right);
+                //每弹出一个节点记得size减一
+                size -= 1;
+            }
+            //高度加一
+            ans += 1;
+        }
+        return ans;
     }
 };
 // @lc code=end
