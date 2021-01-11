@@ -95,7 +95,7 @@ public:
         // 集合放入哈希表 - 键为集合root，键值为root下的集合元素
         for (int i = 0; i < n; i++)
             mymap[ds.find(i)].insert(i);
-
+        // 对map中的每一组都进行按字典序进行排序
         for (auto &t : mymap)
         {
             string str;
