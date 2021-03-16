@@ -7,22 +7,21 @@
 // @lc code=start
 
 // 贪心算法
-// 对两个数组进行排序，给剩余孩子里最小饥饿度的孩子分配最小的能饱腹的饼干
+// 对两个数组进行排序，给剩余孩子里最小胃口的孩子分配最小的能饱腹的饼干
 func findContentChildren(g []int, s []int) int {
 	// 对两个数组进行排序
 	sort.Ints(g)
 	sort.Ints(s)
-	ChildrenNum, CookieNum := len(g), len(s)
+	childrenNum, CookieNum := len(g), len(s)
 	i, j := 0, 0
-	for i < ChildrenNum && j < CookieNum {
-		// 剩余孩子中最小饥饿度的孩子分配了最小的能饱腹的饼干后，将孩子数组后移一位继续查找
+	for i < childrenNum && j < CookieNum {
+		// 找到了能够满足最小的胃口的孩子的饼干大小
 		if g[i] <= s[j] {
 			i++
 		}
-		// 查找最小的能饱腹的饼干
+		// 找能够满足当前最小胃口的孩子的最小的饼干
 		j++
 	}
-	// 返回能够满足的孩子数量
 	return i
 }
 
