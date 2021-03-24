@@ -19,11 +19,11 @@ func find132pattern(nums []int) bool {
 	maxK := math.MinInt64
 
 	for i := n - 2; i >= 0; i-- {
-		// 判断nums[i]是否可以作为最小值，可以则存在
+		// 判断nums[i]是否可以作为最小值，如果该值小于次大值，则找到最小值，则存在
 		if nums[i] < maxK {
 			return true
 		}
-		// 我们将a[i]不断地与单调栈栈顶的元素进行比较，如果a[i]较大，那么栈顶元素可以真正作为2，将其弹出并更新maxK；
+		// 我们将nums[i]不断地与单调栈栈顶的元素进行比较，如果nums[i]较大，那么栈顶元素可以真正作为次大值，将其弹出并更新maxK；
 		for len(candidateK) > 0 && nums[i] > candidateK[len(candidateK)-1] {
 			maxK = candidateK[len(candidateK)-1]
 			candidateK = candidateK[:len(candidateK)-1]
