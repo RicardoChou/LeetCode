@@ -22,6 +22,8 @@ func dfs(temp, nums []int, start int) {
 	res = append(res, tmp)
 	for i := start; i < len(nums); i++ {
 		// 若发现没有选择上一个数，且当前数字与上一个数相同，则可以跳过当前生成的子集。
+		// 比如过[1,2,2],如果遍历到第一个2时，是[[],[1],[2],[1,2]],这时候如果遍历到第二个2时，
+		// 不对他进行跳过，则会重复出现[2],[1,2]，所以需要对其进行跳过
 		if i > start && nums[i] == nums[i-1] {
 			continue
 		}
